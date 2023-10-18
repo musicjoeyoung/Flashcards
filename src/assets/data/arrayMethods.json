@@ -1,0 +1,38 @@
+[
+  {
+    "id": "1",
+    "name": ".map()",
+    "definition": "The map() method of Array instances creates a new array populated with the results of calling a provided function on every element in the calling array.",
+    "code": "const array1 = [1, 4, 9, 16];\nconst map1 = array1.map((x) => x * 2);\nconsole.log(map1); // [2, 8, 18, 32]"
+  },
+  {
+    "id": "2",
+    "name": ".filter()",
+    "definition": "The filter() method creates a new array with all elements that pass the test provided by a given function.",
+    "code": "const array1 = [1, 2, 3, 4, 5];\nconst filtered = array1.filter((x) => x % 2 === 0);\nconsole.log(filtered); // [2, 4]"
+  },
+  {
+    "id": "3",
+    "name": ".reduce()",
+    "definition": "The reduce() method applies a function against an accumulator and each element in the array (from left to right) to reduce it to a single value.",
+    "code": "const array1 = [1, 2, 3, 4];\nconst sum = array1.reduce((acc, current) => acc + current, 0);\nconsole.log(sum); // 10"
+  },
+  {
+    "id": "4",
+    "name": ".forEach()",
+    "definition": "The forEach() method executes a provided function once for each array element.",
+    "code": "const array1 = ['a', 'b', 'c'];\narray1.forEach((element) => console.log(element)); // a, b, c"
+  },
+  {
+    "id": "5",
+    "name": ".sort()",
+    "definition": "The sort() method sorts the elements of an array in place and returns the sorted array.",
+    "code": "const array1 = [3, 1, 4, 1, 5, 9, 2, 6, 5];\narray1.sort();\nconsole.log(array1); // [1, 1, 2, 3, 4, 5, 5, 6, 9]"
+  },
+  {
+    "id": "6",
+    "name": ".concat()",
+    "definition": "The concat() method is used to merge two or more arrays, and it does not change the existing arrays but instead returns a new array.",
+    "code": "const array1 = [1, 2];\nconst array2 = [3, 4];\nconst merged = array1.concat(array2);\nconsole.log(merged); // [1, 2, 3, 4]"
+  }
+]

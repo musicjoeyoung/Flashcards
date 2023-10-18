@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Coming+Soon&family=Quicksand:wght@300;400;600&family=Raleway&display=swap');
+
+.flashcard {
+font-family: 'Coming Soon', cursive, 'Quicksand', 'Raleway', 'sans-serif';
+  border: 1px solid black;
+  width: 60%;
+  margin: 0 auto;
+  position: relative; // Add this to establish a positioning context for the pseudo-element
+
+  &::before {
+    content: ""; // Set the content to an empty string
+    background-image: url('./index-card.png');
+    background-size: cover;
+    opacity: 0.2;
+    position: absolute; // Position the pseudo-element absolutely
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  &__name {
+    font-size: 3rem;
+    margin-block-start: 0;
+    text-align: center;
+    position: relative; // Add this to establish a stacking context for the content
+    z-index: 1; // Ensure the content appears above the pseudo-element
+  }
+
+  &__definition{
+    font-size: 2rem;
+    position: relative;
+    z-index: 1;
+    padding: 0.4rem;
+  }
+
+  &__code{
+    position: relative;
+    z-index: 1;
+    padding: 0.4rem;
+    background-color: black;
+    color: white;
+    display: flex;
+    white-space: pre-line;
+  }
+}
+
+.next-button {
+    display: flex;
+    margin: 1rem auto;
+    background-color: #c6c4c4;
+}
+
+.end-of-list{
+    text-align: center;
+}
