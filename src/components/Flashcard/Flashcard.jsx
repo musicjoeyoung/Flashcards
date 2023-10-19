@@ -29,7 +29,7 @@ function Flashcard() {
   }
 
   return (
-    <div>
+    <div className="flashcard-container">
       {data.length > 0 ? (
         <div className="flashcard">
           <p className="flashcard__name" key={data[currentIndex].id}>{data[currentIndex].name}</p>
