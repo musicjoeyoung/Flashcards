@@ -4,6 +4,7 @@ import axios from 'axios';
 
 function Flashcard() {
   const [data, setData] = useState([]);
+  /* const [randomIndex ,setRandomIndex] = useState(0) */
   const [currentIndex, setCurrentIndex] = useState(0); // State to keep track of the currently displayed item
   const jsonFilePath = "src/assets/data/arrayMethods.json";
 
@@ -16,6 +17,11 @@ function Flashcard() {
       console.log(error);
     }
   }
+
+/*   const getRandomIndex = () =>{
+    const newIndex = Math.floor(Math.random() * data.length)
+    setRandomIndex(newIndex)
+  } */
 
   useEffect(() => {
     getData();
@@ -35,11 +41,6 @@ function Flashcard() {
           <p className="flashcard__name" key={data[currentIndex].id}>{data[currentIndex].name}</p>
           <p className="flashcard__definition">{data[currentIndex].definition}</p>
           <code className="flashcard__code">{data[currentIndex].code}</code>
-          {/* {currentIndex + 1 < data.length ? (
-            <button onClick={showNextItem}>Next</button>
-          ) : (
-            <p>End of List</p>
-          )} */}
         </div>
       ) : (
         <p>Loading data...</p>
@@ -49,6 +50,8 @@ function Flashcard() {
           ) : (
             <p className="end-of-list">End of List</p>
           )}
+         {/*  <button className="random-button" onClick={getRandomIndex}>Next Random</button> */}
+
     </div>
   );
 }
