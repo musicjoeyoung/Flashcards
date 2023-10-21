@@ -11,8 +11,13 @@
     width: 100%;
     border: 1px solid black;
 }
-.run-button{
+
+.button-container{
     display: flex;
-    margin: 1rem auto;
-    background-color: #c6c4c4;
+
+    &__run-button, &__clear-button{
+        display: flex;
+        margin: .5rem auto;
+        background-color: #c6c4c4;
+    }
 }

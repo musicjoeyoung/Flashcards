@@ -4,6 +4,7 @@
 font-family: 'Coming Soon', cursive, 'Quicksand', 'Raleway', 'sans-serif';
   border: 1px solid black;
   width: 44rem;
+  height: 25rem;
   margin: 0 auto;
   position: relative; // Add this to establish a positioning context for the pseudo-element
 
@@ -35,13 +36,15 @@ font-family: 'Coming Soon', cursive, 'Quicksand', 'Raleway', 'sans-serif';
   }
 
   &__code{
-    position: relative;
+   position: absolute;
     z-index: 1;
-    padding: 0.4rem;
+    /* padding: 0.4rem; */
     background-color: black;
     color: white;
     display: flex;
     white-space: pre-line;
+    bottom: 0;
+    width: 100%;
   }
 }
 

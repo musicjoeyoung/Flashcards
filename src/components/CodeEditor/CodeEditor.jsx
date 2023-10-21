@@ -25,6 +25,10 @@ const CodeEditor = () => {
     }
   };
 
+  const clearCode = () =>{
+    setOutput("");
+  }
+
   return (
     <div className="code-editor">
         <div className="code-editor__container">
@@ -47,7 +51,10 @@ const CodeEditor = () => {
         <pre>{output}</pre>
       </div>
       </div>
-      <button className="run-button" onClick={runCode}>Run</button>
+      <div className="button-container">
+        <button className="button-container__run-button" onClick={runCode}>Run</button>
+        <button className="button-container__clear-button" onClick={() => clearCode(output)}>Clear</button>
+      </div>
     </div>
   );
 };
