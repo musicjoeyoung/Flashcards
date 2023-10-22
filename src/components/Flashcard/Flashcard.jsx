@@ -5,12 +5,19 @@ import axios from 'axios';
 function Flashcard() {
   const [data, setData] = useState([]);
   /* const [randomIndex ,setRandomIndex] = useState(0) */
-  const [currentIndex, setCurrentIndex] = useState(0); // State to keep track of the currently displayed item
+  const [currentIndex, setCurrentIndex] = useState(0);
   const jsonFilePath = "src/assets/data/arrayMethods.json";
+  const jsonFilePath2 = "src/assets/data/objectMethods.json"
+  const [dataPath, setDataPath] = useState('arrays')
+
+  const handleOnChange = (newValue) =>{
+    setDataPath(newValue)
+    console.log(newValue)
+  }
 
   const getData = async () => {
     try {
-      const response = await axios.get(jsonFilePath);
+      const response = await axios.get(dataPath === 'arrays' ? jsonFilePath : jsonFilePath2)
       const info = response.data;
       setData(info);
     } catch (error) {
@@ -25,10 +32,9 @@ function Flashcard() {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [dataPath]);
 
   const showNextItem = () => {
-    // Check if there are more items to display
     if (currentIndex + 1 < data.length) {
       setCurrentIndex(currentIndex + 1);
     }
@@ -51,7 +57,10 @@ function Flashcard() {
             <p className="end-of-list">End of List</p>
           )}
          {/*  <button className="random-button" onClick={getRandomIndex}>Next Random</button> */}
-
+            <select onChange={(e) => handleOnChange(e.currentTarget.value)}>
+              <option value="arrays">Arrays</option>
+              <option value="objects">Objects</option>
+            </select>
     </div>
   );
 }

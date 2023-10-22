@@ -18,7 +18,6 @@ const CodeEditor = () => {
         setOutput((prevOutput) => prevOutput + output + '\n');
       };
       const console = { log: consoleLog };
-      // Execute the code in a sandboxed environment
       new Function('console', code)(console);
     } catch (error) {
       console.error(error);

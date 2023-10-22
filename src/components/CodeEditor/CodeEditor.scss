@@ -1,15 +1,27 @@
+@use "../../../src/assets/partials/mixins" as *;
+
 .code-editor{
     width: 90%;
     margin: 0 auto;
 
     &__container{
         display:flex;
-        flex-direction: row;
+        flex-direction: column;
+        //flex-direction: row;//desktop 
+
+        @include desktop{
+            flex-direction: row;
+        }
     }
 }
 .output{
     width: 100%;
     border: 1px solid black;
+    min-height: 10rem;//mobile
+
+    @include desktop{
+        min-height: 0;
+    }
 }
 
 .button-container{
@@ -20,4 +32,8 @@
         margin: .5rem auto;
         background-color: #c6c4c4;
     }
+}
+
+.ace_print-margin{
+    visibility: hidden !important;
 }
