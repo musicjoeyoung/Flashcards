@@ -42,6 +42,11 @@ function Flashcard() {
 
   return (
     <div className="flashcard-container">
+          <select className="flashcard-container__select" onChange={(e) => handleOnChange(e.currentTarget.value)}>
+              <option value="arrays">Arrays</option>
+              <option value="objects">Objects</option>
+              {/* <option value="dsAndAlgos">Data Structures And Algorithms</option> */}
+          </select>
       {data.length > 0 ? (
         <div className="flashcard">
           <p className="flashcard__name" key={data[currentIndex].id}>{data[currentIndex].name}</p>
@@ -57,10 +62,7 @@ function Flashcard() {
             <p className="end-of-list">End of List</p>
           )}
          {/*  <button className="random-button" onClick={getRandomIndex}>Next Random</button> */}
-            <select onChange={(e) => handleOnChange(e.currentTarget.value)}>
-              <option value="arrays">Arrays</option>
-              <option value="objects">Objects</option>
-            </select>
+
     </div>
   );
 }

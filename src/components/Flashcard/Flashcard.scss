@@ -1,6 +1,17 @@
 @use "../../../src/assets/partials/typography"  as *;
 @use "../../../src/assets/partials/mixins" as *;
 
+.flashcard-container{
+      display: flex;
+    flex-direction: column;
+
+    &__select{
+      width: 6rem;
+      margin: 1rem auto;
+      border-radius: 8px;
+    }
+}
+
 .flashcard {
 font-family: 'Coming Soon', cursive, 'Quicksand', 'Raleway', 'sans-serif';
   border: 1px solid black;
