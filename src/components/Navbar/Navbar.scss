@@ -1,0 +1,13 @@
+.navbar {
+    font-size: 1.2rem;
+    justify-content: flex-end;
+    display: flex;
+    margin-bottom: 3rem;
+
+    &__link {
+        margin: 0 1rem;
+        font-weight: 400;
+        color: black;
+        text-decoration: inherit;
+    }
+}

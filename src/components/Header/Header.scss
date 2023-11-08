@@ -1,3 +1,39 @@
-.title{
-    text-align: center;
+.logo {
+    &__title {
+        text-align: center;
+        background-color: white;
+        z-index: 2;
+        position: relative;
+        width: 17rem;
+        margin: 0 auto;
+        animation: slide-in-anim 1.5s ease-out forwards;
+        -webkit-animation: slide-in-anim 1.5s ease-out forwards;
+    }
+    &__box {
+        border: 2px solid black;
+        width: 8rem;
+        height: 4rem;
+        margin: 0 auto;
+        bottom: 5rem;
+        left: -4.4rem;
+        position: relative;
+        padding: 1rem;
+    }
+}
+@keyframes slide-in-anim {
+    0% {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    20% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0%);
+        -webkit-transform: translateX(0%);
+        -moz-transform: translateX(0%);
+        -ms-transform: translateX(0%);
+        -o-transform: translateX(0%);
+    }
 }
