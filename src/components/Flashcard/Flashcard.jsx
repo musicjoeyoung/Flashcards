@@ -10,7 +10,7 @@ function Flashcard() {
   const jsonFilePath2 = "src/assets/data/objectMethods.json"
   const [dataPath, setDataPath] = useState('arrays')
 
-  const handleOnChange = (newValue) =>{
+  const handleOnChange = (newValue) => {
     setDataPath(newValue)
     console.log(newValue)
   }
@@ -25,10 +25,10 @@ function Flashcard() {
     }
   }
 
-/*   const getRandomIndex = () =>{
-    const newIndex = Math.floor(Math.random() * data.length)
-    setRandomIndex(newIndex)
-  } */
+  /*   const getRandomIndex = () =>{
+      const newIndex = Math.floor(Math.random() * data.length)
+      setRandomIndex(newIndex)
+    } */
 
   useEffect(() => {
     getData();
@@ -42,11 +42,11 @@ function Flashcard() {
 
   return (
     <div className="flashcard-container">
-          <select className="flashcard-container__select" onChange={(e) => handleOnChange(e.currentTarget.value)}>
-              <option value="arrays">Arrays</option>
-              <option value="objects">Objects</option>
-              {/* <option value="dsAndAlgos">Data Structures And Algorithms</option> */}
-          </select>
+      <select className="flashcard-container__select" onChange={(e) => handleOnChange(e.currentTarget.value)}>
+        <option value="arrays">Arrays</option>
+        <option value="objects">Objects</option>
+        {/* <option value="dsAndAlgos">Data Structures And Algorithms</option> */}
+      </select>
       {data.length > 0 ? (
         <div className="flashcard">
           <p className="flashcard__name" key={data[currentIndex].id}>{data[currentIndex].name}</p>
@@ -57,11 +57,11 @@ function Flashcard() {
         <p>Loading data...</p>
       )}
       {currentIndex + 1 < data.length ? (
-            <button className="next-button" onClick={showNextItem}>Next</button>
-          ) : (
-            <p className="end-of-list">End of List</p>
-          )}
-         {/*  <button className="random-button" onClick={getRandomIndex}>Next Random</button> */}
+        <button className="next-button" onClick={showNextItem}>Next</button>
+      ) : (
+        <p className="end-of-list">End of List</p>
+      )}
+      {/*  <button className="random-button" onClick={getRandomIndex}>Next Random</button> */}
 
     </div>
   );

@@ -1,16 +1,21 @@
 import './App.scss'
-import CodeEditor from './components/CodeEditor/CodeEditor'
-import Flashcard from './components/Flashcard/Flashcard'
 import Header from './components/Header/Header'
+import Home from './pages/Home/Home'
+import About from './pages/About/About'
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 function App() {
 
 
   return (
     <>
-      <Header/>
-    <Flashcard/>
-    <CodeEditor/>
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
