@@ -47,7 +47,7 @@ const CodeEditor = () => {
 
         <div className="output">
           <h2>Output:</h2>
-          <pre>{output}</pre>
+          <pre className="output__pre">{output}</pre>
         </div>
       </div>
       <div className="button-container">
