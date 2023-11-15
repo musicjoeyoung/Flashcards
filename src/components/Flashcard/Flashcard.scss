@@ -1,37 +1,36 @@
-@use "../../../src/assets/partials/typography"  as *;
+@use "../../../src/assets/partials/typography" as *;
 @use "../../../src/assets/partials/mixins" as *;
 
-.flashcard-container{
-      display: flex;
-    flex-direction: column;
+.flashcard-container {
+  display: flex;
+  flex-direction: column;
 
-    &__select{
-      width: 6rem;
-      margin: 1rem auto;
-      border-radius: 8px;
-    }
+  &__select {
+    width: 6rem;
+    margin: 1rem auto;
+    border-radius: 8px;
+  }
 }
 
 .flashcard {
-font-family: 'Coming Soon', cursive, 'Quicksand', 'Raleway', 'sans-serif';
+  font-family: "Coming Soon", cursive, "Quicksand", "Raleway", "sans-serif";
   border: 1px solid black;
   width: 30rem;
   height: 22rem;
   margin: 0 auto;
-  position: relative; 
+  position: relative;
 
-  @include tablet{
-     width: 44rem;
+  @include tablet {
+    width: 44rem;
     height: 25rem;
   }
 
-
   &::before {
-    content: ""; // Set the content to an empty string
-    background-image: url('./index-card.png');
+    content: "";
+    background-image: url("../../assets/images/index-card.png");
     background-size: cover;
     opacity: 0.2;
-    position: absolute; // Position the pseudo-element absolutely
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;
@@ -43,11 +42,11 @@ font-family: 'Coming Soon', cursive, 'Quicksand', 'Raleway', 'sans-serif';
     margin-block-start: 0;
     margin-block-end: 0;
     text-align: center;
-    position: relative; 
-    z-index: 1; 
+    position: relative;
+    z-index: 1;
   }
 
-  &__definition{
+  &__definition {
     font-size: 1.4rem;
     //font-size: 2rem; //desktop
     position: relative;
@@ -55,8 +54,8 @@ font-family: 'Coming Soon', cursive, 'Quicksand', 'Raleway', 'sans-serif';
     padding: 0.4rem;
   }
 
-  &__code{
-   position: absolute;
+  &__code {
+    position: absolute;
     z-index: 1;
     /* padding: 0.4rem; */
     background-color: black;
@@ -68,12 +67,17 @@ font-family: 'Coming Soon', cursive, 'Quicksand', 'Raleway', 'sans-serif';
   }
 }
 
-.next-button {
-    display: flex;
-    margin: 1rem auto;
-    background-color: #c6c4c4;
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+.next-button,
+.back-button {
+  display: flex;
+  margin: 1rem 3rem;
+  background-color: #c6c4c4;
 }
 
-.end-of-list{
-    text-align: center;
+.end-of-list {
+  text-align: center;
 }
