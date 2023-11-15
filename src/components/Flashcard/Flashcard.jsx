@@ -39,6 +39,11 @@ function Flashcard() {
       setCurrentIndex(currentIndex + 1);
     }
   }
+  const showPreviousItem = () => {
+    if (currentIndex - 1 >= 0) {
+      setCurrentIndex(currentIndex - 1);
+    }
+  };
 
   return (
     <div className="flashcard-container">
@@ -56,11 +61,16 @@ function Flashcard() {
       ) : (
         <p>Loading data...</p>
       )}
-      {currentIndex + 1 < data.length ? (
-        <button className="next-button" onClick={showNextItem}>Next</button>
-      ) : (
-        <p className="end-of-list">End of List</p>
-      )}
+      <div className="button-container">
+        <button className="back-button" onClick={showPreviousItem}>
+          Back
+        </button>
+        {currentIndex + 1 < data.length ? (
+          <button className="next-button" onClick={showNextItem}>Next</button>
+        ) : (
+          <p className="end-of-list">End of List</p>
+        )}
+      </div>
       {/*  <button className="random-button" onClick={getRandomIndex}>Next Random</button> */}
 
     </div>
