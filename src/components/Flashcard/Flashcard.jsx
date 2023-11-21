@@ -59,7 +59,7 @@ function Flashcard() {
           <code className="flashcard__code">{data[currentIndex].code}</code>
         </div>
       ) : (
-        <p>Loading data...</p>
+        <p className="flashcard__loading">Loading data...</p>
       )}
       <div className="button-container">
         <button className="back-button" onClick={showPreviousItem}>
