@@ -8,8 +8,8 @@ function Flashcard() {
   const [data, setData] = useState([]);
   /* const [randomIndex ,setRandomIndex] = useState(0) */
   const [currentIndex, setCurrentIndex] = useState(0);
-  const jsonFilePath = "/data/arrayMethods.json";
-  const jsonFilePath2 = "/data/objectMethods.json"
+  //const jsonFilePath = "/data/arrayMethods.json";
+  //const jsonFilePath2 = "/data/objectMethods.json"
   const [dataPath, setDataPath] = useState('arrays')
 
   const URL = import.meta.env.VITE_APP_BASE_URL;
