@@ -2,22 +2,41 @@ import "./Flashcard.scss"
 import { useState, useEffect } from "react";
 import axios from 'axios';
 
+//console.log("URL: ", URL);
+
 function Flashcard() {
   const [data, setData] = useState([]);
   /* const [randomIndex ,setRandomIndex] = useState(0) */
   const [currentIndex, setCurrentIndex] = useState(0);
-  const jsonFilePath = "src/assets/data/arrayMethods.json";
-  const jsonFilePath2 = "src/assets/data/objectMethods.json"
+  //const jsonFilePath = "/data/arrayMethods.json";
+  //const jsonFilePath2 = "/data/objectMethods.json"
   const [dataPath, setDataPath] = useState('arrays')
+
+  const URL = import.meta.env.VITE_APP_BASE_URL;
+  const arrayMethods = `${URL}/array-methods`
+  const objectMethods = `${URL}/object-methods`
 
   const handleOnChange = (newValue) => {
     setDataPath(newValue)
+    setCurrentIndex(0)
     console.log(newValue)
   }
 
+  //GET request from json file
+  /*   const getData = async () => {
+      try {
+        const response = await axios.get(dataPath === 'arrays' ? jsonFilePath : jsonFilePath2)
+        const info = response.data;
+        setData(info);
+      } catch (error) {
+        console.log(error);
+      }
+    } */
+
+  //GET request from server
   const getData = async () => {
     try {
-      const response = await axios.get(dataPath === 'arrays' ? jsonFilePath : jsonFilePath2)
+      const response = await axios.get(dataPath === 'arrays' ? arrayMethods : objectMethods)
       const info = response.data;
       setData(info);
     } catch (error) {
@@ -59,7 +78,7 @@ function Flashcard() {
           <code className="flashcard__code">{data[currentIndex].code}</code>
         </div>
       ) : (
-        <p>Loading data...</p>
+        <p className="flashcard__loading">Loading data...</p>
       )}
       <div className="button-container">
         <button className="back-button" onClick={showPreviousItem}>

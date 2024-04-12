@@ -5,8 +5,7 @@ import About from './pages/About/About'
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 function App() {
-
-
+  console.log('Welcome to CodeCards!')
   return (
     <>
       <BrowserRouter>
