@@ -1,57 +1,57 @@
-import "./Register.scss";
+import "./Login.scss";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const baseURL = import.meta.env.VITE_APP_BASE_URL;
 
-const Register = () => {
-    const [isRegistered, setIsRegistered] = useState(false);
+const Login = () => {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [error, setError] = useState("");
+
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (isRegistered) {
+        if (isLoggedIn) {
             const timer = setTimeout(() => {
-                navigate('/login');
+                navigate('/');
             }, 1000);
 
             return () => clearTimeout(timer);
         }
-    }, [isRegistered, navigate]);
+    }, [isLoggedIn, navigate]);
 
-    const handleRegister = async (event) => {
+    const handleLogin = async (event) => {
         event.preventDefault();
 
         try {
-            await axios.post(`${baseURL}/register`, {
+            const response = await axios.post(`${baseURL}/login`, {
                 email: event.target.email.value,
-                username: event.target.username.value,
                 password: event.target.password.value
             });
-            setIsRegistered(true);
+            console.log('response:', response)
+            setIsLoggedIn(true);
+            localStorage.setItem('token', response.data.accessToken);
         } catch (error) {
-            setError(error.response?.data || 'Failed to register');
-            console.error('Error registering user:', error);
+            setError(error.response?.data || 'Failed to login');
+            console.error('Error logging in:', error);
         }
-    };
+    }
 
     return (
         <div>
-            <h2>Register</h2>
-            <form onSubmit={handleRegister}>
+            <h2>Login</h2>
+            <form onSubmit={handleLogin}>
                 <label htmlFor="email">Email:</label>
                 <input type="email" id="email" name="email" required />
-                <label htmlFor="username">Username:</label>
-                <input type="text" id="username" name="username" required />
                 <label htmlFor="password">Password:</label>
                 <input type="password" id="password" name="password" required />
-                <button type="submit">Register</button>
-                {isRegistered && <p>Success! Redirecting...</p>}
+                <button type="submit">Login</button>
+                {isLoggedIn && <p>Success! Redirecting...</p>}
                 {error && <p>{error}</p>}
             </form>
         </div>
-    );
+    )
 }
 
-export default Register;
+export default Login
