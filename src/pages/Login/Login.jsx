@@ -39,13 +39,13 @@ const Login = () => {
     }
 
     return (
-        <div>
-            <h2>Login</h2>
-            <form onSubmit={handleLogin}>
+        <div className="login">
+            <h2 className="login__title">Login</h2>
+            <form onSubmit={handleLogin} className="login__form">
                 <label htmlFor="email">Email:</label>
-                <input type="email" id="email" name="email" required />
+                <input type="email" id="email" name="email" required placeholder="email" autoComplete="email address" />
                 <label htmlFor="password">Password:</label>
-                <input type="password" id="password" name="password" required />
+                <input type="password" id="password" name="password" required placeholder="password" autoComplete="password" />
                 <button type="submit">Login</button>
                 {isLoggedIn && <p>Success! Redirecting...</p>}
                 {error && <p>{error}</p>}

@@ -1,20 +1,23 @@
 import "./Flashcard.scss"
 import { useState, useEffect } from "react";
 import axios from 'axios';
-
-//console.log("URL: ", URL);
+import FlashcardForm from "../FlashcardForm/FlashcardForm"
 
 function Flashcard() {
   const [data, setData] = useState([]);
-  /* const [randomIndex ,setRandomIndex] = useState(0) */
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [dataPath, setDataPath] = useState('arrays')
   //const jsonFilePath = "/data/arrayMethods.json";
   //const jsonFilePath2 = "/data/objectMethods.json"
-  const [dataPath, setDataPath] = useState('arrays')
 
   const URL = import.meta.env.VITE_APP_BASE_URL;
   const arrayMethods = `${URL}/array-methods`
+  const arrayMethodsNoLogin = `${URL}/array-methods/nologin`
   const objectMethods = `${URL}/object-methods`
+  const objectMethodsNoLogin = `${URL}/object-methods/nologin`
+  const token = localStorage.getItem('token')
+
+  //is this the place where I could track if the token has expired then automatically log the user out?
 
   const handleOnChange = (newValue) => {
     setDataPath(newValue)
@@ -22,33 +25,55 @@ function Flashcard() {
     console.log(newValue)
   }
 
-  //GET request from json file
-  /*   const getData = async () => {
-      try {
-        const response = await axios.get(dataPath === 'arrays' ? jsonFilePath : jsonFilePath2)
-        const info = response.data;
-        setData(info);
-      } catch (error) {
-        console.log(error);
-      }
-    } */
-
-  //GET request from server
-  const getData = async () => {
-    try {
-      const response = await axios.get(dataPath === 'arrays' ? arrayMethods : objectMethods)
-      const info = response.data;
-      setData(info);
-    } catch (error) {
-      console.log(error);
+  const headers = {
+    headers: {
+      Authorization: `Bearer ${token}`
     }
   }
 
-  /*   const getRandomIndex = () =>{
-      const newIndex = Math.floor(Math.random() * data.length)
-      setRandomIndex(newIndex)
-    } */
+  //refactor this. This is ugly.
+  /*   const getData = async () => {
+      try {
+        if (dataPath === 'arrays' && !token) {
+          const response = await axios.get(arrayMethodsNoLogin)
+          setData(response.data)
+        } else if (dataPath === 'arrays' && token) {
+          const response = await axios.get(arrayMethods, headers)
+          setData(response.data)
+        } else if (dataPath === 'objects' && !token) {
+          const response = await axios.get(objectMethodsNoLogin)
+          setData(response.data)
+        } else if (dataPath === 'objects' && token) {
+          const response = await axios.get(objectMethods, headers)
+          setData(response.data)
+        }
+  
+      } catch (error) {
+        console.log(error)
+      }
+    }
+   */
 
+  const getData = async () => {
+    try {
+      let url;
+
+      if (dataPath === 'arrays') {
+        url = token ? arrayMethods : arrayMethodsNoLogin;
+      } else if (dataPath === 'objects') {
+        url = token ? objectMethods : objectMethodsNoLogin
+      }
+
+      if (url) {
+        const response = await axios.get(url, headers);
+        setData(response.data)
+      } else {
+        console.log('Invalid dataPath provided')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
   useEffect(() => {
     getData();
   }, [dataPath]);
@@ -90,10 +115,40 @@ function Flashcard() {
           <p className="end-of-list">End of List</p>
         )}
       </div>
-      {/*  <button className="random-button" onClick={getRandomIndex}>Next Random</button> */}
-
+      {token ? (<FlashcardForm dataPath={dataPath} />) : null}
     </div>
   );
 }
 
 export default Flashcard;
+
+/* -------------------------------------------------------------------------- */
+/*                             Prior GET requests                             */
+/* -------------------------------------------------------------------------- */
+
+//GET request from json file
+/*   const getData = async () => {
+    try {
+      const response = await axios.get(dataPath === 'arrays' ? jsonFilePath : jsonFilePath2)
+      const info = response.data;
+      setData(info);
+    } catch (error) {
+      console.log(error);
+    }
+  } */
+
+//GET request from server
+/*   const getData = async () => {
+    try {
+      const response = await axios.get(dataPath === 'arrays' ? arrayMethods : objectMethods,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+      const info = response.data;
+      setData(info);
+    } catch (error) {
+      console.log(error);
+    }
+  } */

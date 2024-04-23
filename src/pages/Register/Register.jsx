@@ -37,15 +37,15 @@ const Register = () => {
     };
 
     return (
-        <div>
-            <h2>Register</h2>
-            <form onSubmit={handleRegister}>
+        <div className="register">
+            <h2 className="register__title">Register</h2>
+            <form onSubmit={handleRegister} className="register__form">
                 <label htmlFor="email">Email:</label>
-                <input type="email" id="email" name="email" required />
+                <input type="email" id="email" name="email" required autoComplete="email address" />
                 <label htmlFor="username">Username:</label>
-                <input type="text" id="username" name="username" required />
+                <input type="text" id="username" name="username" required autoComplete="username" />
                 <label htmlFor="password">Password:</label>
-                <input type="password" id="password" name="password" required />
+                <input type="password" id="password" name="password" required autoComplete="password" />
                 <button type="submit">Register</button>
                 {isRegistered && <p>Success! Redirecting...</p>}
                 {error && <p>{error}</p>}

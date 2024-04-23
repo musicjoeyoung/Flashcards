@@ -9,5 +9,11 @@
         font-weight: 400;
         color: black;
         text-decoration: inherit;
+        padding: 1rem;
+
+        &--register {
+            background-color: #21ece2;
+            border-radius: 5px;
+        }
     }
 }
