@@ -12,7 +12,6 @@ function Flashcard() {
 
   const URL = import.meta.env.VITE_APP_BASE_URL;
   const arrayMethods = `${URL}/array-methods`
-  const arrayMethodsNoLogin = `${URL}/array-methods/nologin`
   const objectMethods = `${URL}/object-methods`
   const objectMethodsNoLogin = `${URL}/object-methods/nologin`
   const token = localStorage.getItem('token')
@@ -56,10 +55,10 @@ function Flashcard() {
 
   const getData = async () => {
     try {
-      let url;
+      let url = dataPath === 'arrays' ? arrayMethods : token ? objectMethods : objectMethodsNoLogin
 
       if (dataPath === 'arrays') {
-        url = token ? arrayMethods : arrayMethodsNoLogin;
+        url = arrayMethods
       } else if (dataPath === 'objects') {
         url = token ? objectMethods : objectMethodsNoLogin
       }
@@ -76,7 +75,7 @@ function Flashcard() {
   }
   useEffect(() => {
     getData();
-  }, [dataPath]);
+  }, [dataPath, token]);
 
   const showNextItem = () => {
     if (currentIndex + 1 < data.length) {
