@@ -1,87 +1,74 @@
-import "./Flashcard.scss"
+import "./Flashcard.scss";
 import { useState, useEffect } from "react";
 import axios from 'axios';
-import FlashcardForm from "../FlashcardForm/FlashcardForm"
+import FlashcardForm from "../FlashcardForm/FlashcardForm";
 
 function Flashcard() {
   const [data, setData] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [dataPath, setDataPath] = useState('arrays')
-  //const jsonFilePath = "/data/arrayMethods.json";
-  //const jsonFilePath2 = "/data/objectMethods.json"
+  const [dataPath, setDataPath] = useState('arrays');
 
   const URL = import.meta.env.VITE_APP_BASE_URL;
-  const arrayMethods = `${URL}/array-methods`
-  const objectMethods = `${URL}/object-methods`
-  const objectMethodsNoLogin = `${URL}/object-methods/nologin`
-  const token = localStorage.getItem('token')
-
+  const arrayMethods = `${URL}/array-methods`;
+  const objectMethods = `${URL}/object-methods`;
+  const objectMethodsNoLogin = `${URL}/object-methods/nologin`;
+  const token = localStorage.getItem('token');
   //is this the place where I could track if the token has expired then automatically log the user out?
-
-  const handleOnChange = (newValue) => {
-    setDataPath(newValue)
-    setCurrentIndex(0)
-    console.log(newValue)
-  }
 
   const headers = {
     headers: {
       Authorization: `Bearer ${token}`
     }
-  }
-
-  //refactor this. This is ugly.
-  /*   const getData = async () => {
-      try {
-        if (dataPath === 'arrays' && !token) {
-          const response = await axios.get(arrayMethodsNoLogin)
-          setData(response.data)
-        } else if (dataPath === 'arrays' && token) {
-          const response = await axios.get(arrayMethods, headers)
-          setData(response.data)
-        } else if (dataPath === 'objects' && !token) {
-          const response = await axios.get(objectMethodsNoLogin)
-          setData(response.data)
-        } else if (dataPath === 'objects' && token) {
-          const response = await axios.get(objectMethods, headers)
-          setData(response.data)
-        }
-  
-      } catch (error) {
-        console.log(error)
-      }
-    }
-   */
+  };
 
   const getData = async () => {
     try {
-      let url = dataPath === 'arrays' ? arrayMethods : token ? objectMethods : objectMethodsNoLogin
-
+      let url;
       if (dataPath === 'arrays') {
-        url = arrayMethods
-      } else if (dataPath === 'objects') {
-        url = token ? objectMethods : objectMethodsNoLogin
+        url = arrayMethods;
+      } else {
+        url = token ? objectMethods : objectMethodsNoLogin;
       }
 
-      if (url) {
-        const response = await axios.get(url, headers);
-        setData(response.data)
-      } else {
-        console.log('Invalid dataPath provided')
-      }
+      const config = token ? headers : {};
+
+      const response = await axios.get(url, config);
+      setData(response.data);
     } catch (error) {
-      console.log(error)
+      console.error('Failed to fetch data:', error);
+      if (error.response) {
+        if (error.response.status === 401) {
+          console.log('Unauthorized access - token may be invalid or expired');
+          localStorage.removeItem('token');
+        }
+        console.log('Error status:', error.response.status);
+      } else {
+        console.log('Error:', error.message);
+      }
     }
-  }
+  };
+
   useEffect(() => {
     getData();
   }, [dataPath, token]);
+
+  const addFlashcard = (newFlashcard) => {
+    setData((prevData) => [...prevData, newFlashcard]);
+    setCurrentIndex(data.length);
+  };
+
+  const handleOnChange = (newValue) => {
+    setDataPath(newValue);
+    setCurrentIndex(0);
+    console.log(newValue);
+  };
 
   const showNextItem = () => {
     if (currentIndex + 1 < data.length) {
       setCurrentIndex(currentIndex + 1);
     }
-  }
+  };
+
   const showPreviousItem = () => {
     if (currentIndex - 1 >= 0) {
       setCurrentIndex(currentIndex - 1);
@@ -93,9 +80,8 @@ function Flashcard() {
       <select className="flashcard-container__select" onChange={(e) => handleOnChange(e.currentTarget.value)}>
         <option value="arrays">Arrays</option>
         <option value="objects">Objects</option>
-        {/* <option value="dsAndAlgos">Data Structures And Algorithms</option> */}
       </select>
-      {data.length > 0 ? (
+      {data.length > 0 && data[currentIndex] ? (
         <div className="flashcard">
           <p className="flashcard__name" key={data[currentIndex].id}>{data[currentIndex].name}</p>
           <p className="flashcard__definition">{data[currentIndex].definition}</p>
@@ -114,12 +100,13 @@ function Flashcard() {
           <p className="end-of-list">End of List</p>
         )}
       </div>
-      {token ? (<FlashcardForm dataPath={dataPath} />) : null}
+      {token ? (<FlashcardForm dataPath={dataPath} addFlashcard={addFlashcard} />) : null}
     </div>
   );
 }
 
 export default Flashcard;
+
 
 /* -------------------------------------------------------------------------- */
 /*                             Prior GET requests                             */

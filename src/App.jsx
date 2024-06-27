@@ -6,11 +6,12 @@ import Register from './pages/Register/Register'
 import Login from './pages/Login/Login'
 import Profile from "./pages/Profile/Profile"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { AuthProvider } from './context/AuthContext'
 
 function App() {
   console.log('Welcome to CodeCards!')
   return (
-    <>
+    <AuthProvider>
       <BrowserRouter>
         <Header />
         <Routes>
@@ -21,7 +22,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
         </Routes>
       </BrowserRouter>
-    </>
+    </AuthProvider>
   )
 }
 
