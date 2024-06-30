@@ -60,7 +60,7 @@ function Flashcard() {
   const handleOnChange = (newValue) => {
     setDataPath(newValue);
     setCurrentIndex(0);
-    console.log(newValue);
+    //console.log(newValue);
   };
 
   const showNextItem = () => {
