@@ -75,6 +75,23 @@ function Flashcard() {
     }
   };
 
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`${arrayMethods}/${id}`, headers);
+      setData((prevData) => prevData.filter((item) => item.id !== id));
+      if (currentIndex >= data.length - 1 && data.length > 1) {
+        setCurrentIndex(currentIndex - 1);
+      }
+    } catch (error) {
+      console.error('Failed to delete card:', error);
+      if (error.response && error.response.status === 401) {
+        console.log('Unauthorized access - token may be invalid or expired');
+        localStorage.removeItem('token');
+      }
+    }
+  };
+
+
   return (
     <div className="flashcard-container">
       <select className="flashcard-container__select" onChange={(e) => handleOnChange(e.currentTarget.value)}>
@@ -85,7 +102,9 @@ function Flashcard() {
         <div className="flashcard">
           <p className="flashcard__name" key={data[currentIndex].id}>{data[currentIndex].name}</p>
           <p className="flashcard__definition">{data[currentIndex].definition}</p>
-          <code className="flashcard__code">{data[currentIndex].code}</code>
+          <code className="flashcard__code">{data[currentIndex].code}
+            <button className="flashcard__delete" onClick={() => handleDelete(data[currentIndex].id)}>delete</button>
+          </code>
         </div>
       ) : (
         <p className="flashcard__loading">Loading data...</p>
