@@ -1,7 +1,10 @@
 import "./Flashcard.scss";
-import { useState, useEffect } from "react";
-import axios from 'axios';
+
+import { useEffect, useState } from "react";
+
 import FlashcardForm from "../FlashcardForm/FlashcardForm";
+import axios from 'axios';
+import trashcan from "../../assets/icons/trashcan.svg"
 
 function Flashcard() {
   const [data, setData] = useState([]);
@@ -91,6 +94,13 @@ function Flashcard() {
     }
   };
 
+  useEffect(() => {
+    if (currentIndex >= data.length && data.length > 0) {
+      setCurrentIndex(data.length - 1);
+    }
+  }, [data, currentIndex]);
+
+
 
   return (
     <div className="flashcard-container">
@@ -103,7 +113,8 @@ function Flashcard() {
           <p className="flashcard__name" key={data[currentIndex].id}>{data[currentIndex].name}</p>
           <p className="flashcard__definition">{data[currentIndex].definition}</p>
           <code className="flashcard__code">{data[currentIndex].code}
-            <button className="flashcard__delete" onClick={() => handleDelete(data[currentIndex].id)}>delete</button>
+            {/* <button className="flashcard__delete" onClick={() => handleDelete(data[currentIndex].id)}>delete</button> */}
+            <img className="flashcard__delete" src={trashcan} alt="delete" onClick={() => handleDelete(data[currentIndex].id)} />
           </code>
         </div>
       ) : (
@@ -119,7 +130,7 @@ function Flashcard() {
           <p className="end-of-list">End of List</p>
         )}
       </div>
-      {token ? (<FlashcardForm dataPath={dataPath} addFlashcard={addFlashcard} />) : null}
+      {token ? (<FlashcardForm dataPath={dataPath} addFlashcard={addFlashcard} data={data} setData={setData} />) : null}
     </div>
   );
 }

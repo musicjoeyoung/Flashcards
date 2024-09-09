@@ -1,5 +1,7 @@
-import { useRef, useState } from 'react';
 import "./FlashcardForm.scss";
+
+import { useRef, useState } from 'react';
+
 import axios from 'axios';
 
 const baseURL = import.meta.env.VITE_APP_BASE_URL;
@@ -35,10 +37,10 @@ const FlashcardForm = ({ dataPath, addFlashcard }) => {
                     }
                 }
             );
-
+            const createdFlashcard = response.data;
             formRef.current.reset();
             setIsSuccessful(true);
-            addFlashcard(newFlashcard); // Call the addFlashcard function to update the state in the parent component
+            addFlashcard(createdFlashcard);
         } catch (error) {
             console.error('Error submitting flashcard:', error);
         }
